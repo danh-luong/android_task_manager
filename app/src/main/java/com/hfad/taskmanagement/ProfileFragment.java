@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -40,6 +41,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         Intent intent = getActivity().getIntent();
         String username = intent.getStringExtra("username");
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -70,10 +72,20 @@ public class ProfileFragment extends Fragment {
 
                         }
                     });
+            Button logOutBtn = (Button) rootView.findViewById(R.id.btnLogOut);
+            logOutBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ProfileFragment.this.getActivity(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    ProfileFragment.this.getActivity().finish();
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return rootView;
     }
 
 }
