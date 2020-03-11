@@ -67,7 +67,7 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
         edtDesctiptionTask = findViewById(R.id.txtDescriptionTask);
         spAssignee = findViewById(R.id.spAssignee);
         lnAssignee = findViewById(R.id.lnAssignee);
-        if (ServerConfig.currentAccount.getRoleId() != 2) {
+        if (ServerConfig.currentAccount.getRoleId() != 1) {
             lnAssignee.setVisibility(View.VISIBLE);
             AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
             JSONObject jsonObject = new JSONObject();
@@ -86,7 +86,13 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
                                 CreatedTaskActivity.this.listAssignees = gson.fromJson(listUserJson, type);
                                 List<String> listOfAssigneeName = new ArrayList<>();
                                 for (int i = 0; i < CreatedTaskActivity.this.listAssignees.size(); i++) {
-                                    listOfAssigneeName.add(CreatedTaskActivity.this.listAssignees.get(i).getName());
+                                    if (ServerConfig.currentAccount.getRoleId() == 3) {
+                                        if (Integer.parseInt(CreatedTaskActivity.this.listAssignees.get(i).getRoleId()) != 1) {
+                                            listOfAssigneeName.add(CreatedTaskActivity.this.listAssignees.get(i).getName());
+                                        }
+                                    } else if (ServerConfig.currentAccount.getRoleId() == 1) {
+                                            listOfAssigneeName.add(CreatedTaskActivity.this.listAssignees.get(i).getName());
+                                    }
                                 }
                                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(CreatedTaskActivity.this,
                                         android.R.layout.simple_spinner_item, listOfAssigneeName);
@@ -138,7 +144,7 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String result = dayOfMonth + "/" + (month + 1) + "/" + year;
+        String result = dayOfMonth + "-" + (month + 1) + "-" + year;
         if (view.getTag() == "startDate") {
             txtStartDate.setText(result);
         } else if (view.getTag() == "endDate") {
@@ -151,8 +157,8 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
         String txtEndDateString = txtEndDate.getText().toString();
         String txtTaskName = edtTaskName.getText().toString().trim();
         String txtDescriptionTask = edtDesctiptionTask.getText().toString().trim();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date currentDate = new Date();
         try {
             Date startDate = simpleDateFormat.parse(txtStartDateString);
@@ -180,12 +186,12 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
             if (ServerConfig.currentAccount.getRoleId() == 2) {
                 taskCreatedDTO = new TaskCreatedDTO(txtTaskName, txtDescriptionTask,
                         txtStartDateString, txtEndDateString, dateFormat.format(currentDate).toString(),
-                        null, "Not Accepted", username);
+                        null, "Pending", username);
             } else {
                 //Not Done
                 taskCreatedDTO = new TaskCreatedDTO(txtTaskName, txtDescriptionTask,
                         txtStartDateString, txtEndDateString, dateFormat.format(currentDate).toString(),
-                        username, "Accepted", username);
+                        username, "Pending", assigneeName);
             }
             Gson gson = new Gson();
             String taskDetail = gson.toJson(taskCreatedDTO);
@@ -194,7 +200,11 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
                     new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
+                            Intent intent = new Intent(CreatedTaskActivity.this, HomeEmployeeActivity.class);
+                            intent.putExtra("username", CreatedTaskActivity.this.username);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
                         }
 
                         @Override

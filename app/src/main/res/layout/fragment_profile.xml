@@ -33,6 +33,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/edtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,6 +56,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/edtPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,6 +80,7 @@
                 android:inputType="phone"/>
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/edtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,6 +106,7 @@
                 android:inputType="phone"/>
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/edtAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,6 +114,11 @@
                 android:layout_marginTop="5dp"
                 android:text="Abc Bakery, Q.1, TP.HCM" />
         </LinearLayout>
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log Out"/>
     </LinearLayout>
 
 

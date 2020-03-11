@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CurrentTaskEmployeeFragment">
+    tools:context=".CurrentTaskManagerFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +25,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create New Task" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pending Task Need To View:"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/task_recycler_pending"
+                android:scrollbars="vertical"/>
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

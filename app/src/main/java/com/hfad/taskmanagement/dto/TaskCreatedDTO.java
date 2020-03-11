@@ -70,4 +70,20 @@ public class TaskCreatedDTO implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getUserAssignee() {
+        return userAssignee;
+    }
+
+    public void setUserAssignee(String userAssignee) {
+        this.userAssignee = userAssignee;
+    }
 }

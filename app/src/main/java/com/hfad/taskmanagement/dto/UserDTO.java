@@ -4,18 +4,27 @@ import java.io.Serializable;
 
 public class UserDTO implements Serializable {
 
-    private String id, name, email, phone, address, groupId;
+    private String id, name, email, phone, address, groupId, roleId;
 
-    public UserDTO(String id, String name, String email, String phone, String address, String groupId) {
+    public UserDTO(String id, String name, String email, String phone, String address, String groupId, String roleId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.groupId = groupId;
+        this.roleId = roleId;
     }
 
     public UserDTO() {
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public String getId() {
