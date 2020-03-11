@@ -6,4 +6,5 @@
 
     <string name="current_task">Task</string>
     <string name="profile">Profile</string>
+    <string name="current_employee">Employee</string>
 </resources>

@@ -39,6 +39,8 @@ public class HomeManagerActivity extends AppCompatActivity {
                     return getResources().getText(R.string.current_task);
                 case 1:
                     return getResources().getText(R.string.profile);
+                case 2:
+                    return getResources().getText(R.string.current_employee);
             }
             return super.getPageTitle(position);
         }
@@ -50,13 +52,15 @@ public class HomeManagerActivity extends AppCompatActivity {
                     return new CurrentTaskManagerFragment();
                 case 1:
                     return new ProfileFragment();
+                case 2:
+                    return new CurrentEmployeeManagerFragment();
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     }
 }

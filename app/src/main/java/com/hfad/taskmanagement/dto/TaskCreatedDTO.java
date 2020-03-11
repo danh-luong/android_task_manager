@@ -4,7 +4,15 @@ import java.io.Serializable;
 
 public class TaskCreatedDTO implements Serializable {
 
-    private String name, descriptionTask, startDate, endDate, createdDate, userCreationName, userAssignee, status;
+    private String id, name, descriptionTask, startDate, endDate, createdDate, userCreationName, userAssignee, status;
+
+    public TaskCreatedDTO(String id, String name, String descriptionTask, String startDate, String endDate) {
+        this.id = id;
+        this.name = name;
+        this.descriptionTask = descriptionTask;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public TaskCreatedDTO(String name, String descriptionTask, String startDate, String endDate,
                           String createdDate, String userCreationName, String status, String userAssignee) {

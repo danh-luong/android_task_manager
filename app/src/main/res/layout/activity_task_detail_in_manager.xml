@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TaskDetailActivity">
+    tools:context=".TaskDetailInManagerActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,18 +35,11 @@
                 android:id="@+id/txtTaskName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
                 android:text="Name"
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/txtErrorTaskName"
-            android:textColor="@color/colorErorrRed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Please input Task Name"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,21 +53,14 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txtDesctiptionTaskEmployee"
+                android:id="@+id/txtDesctiptionTask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
                 android:text="Description Of Task"
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/txtErrorTaskdescription"
-            android:textColor="@color/colorErorrRed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Please input Description"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,63 +70,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start Date: "
-                android:textSize="15dp"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtStartDate"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MM-DD-YYYY"
+                android:text="Start Date"
                 android:textSize="15dp"
                 android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btnStartDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="clickToGetStartDate"
-                android:text="Get Date"
-                android:visibility="gone" />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="End Date: "
                 android:textSize="18dp"
-                android:textStyle="bold" />
-
+                android:textStyle="bold"
+                android:text="End Date: "/>
             <TextView
                 android:id="@+id/txtEndDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MM-DD-YYYY"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
+                android:textStyle="bold"
+                android:text="MM-DD-YYYY"/>
             <Button
                 android:id="@+id/btnEndDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="clickToGetEndDate"
                 android:text="Get Date"
-                android:visibility="gone" />
-
+                android:onClick="clickToGetEndDate"/>
         </LinearLayout>
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/txtErrorDate"
-            android:textColor="@color/colorErorrRed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start Date should be smaller than End Date"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -203,16 +168,23 @@
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <Button
-            android:visibility="gone"
-            android:id="@+id/btnSaveInfoTask"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Save"
-            android:onClick="clickToSaveDetailTask"/>
-
+            android:orientation="horizontal">
+            <Button
+                android:layout_marginLeft="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:onClick="clickToUpdateTask"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="Suspend Task"
+                android:onClick="clickToSuspendTask"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

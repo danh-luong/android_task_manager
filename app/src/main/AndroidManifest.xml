@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TaskDetailPendingActivity"></activity>
+        <activity android:name=".TaskDetailInManagerActivity"></activity>
+        <activity android:name=".TaskOfEmployeeInManagerActivity" />
+        <activity android:name=".TaskDetailPendingActivity" />
         <activity android:name=".CreatedTaskActivity" />
         <activity android:name=".TaskDetailActivity" />
         <activity android:name=".HomeManagerActivity" />

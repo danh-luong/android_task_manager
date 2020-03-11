@@ -65,7 +65,67 @@ public class CurrentTaskEmployeeFragment extends Fragment {
                             Type type = new TypeToken<ArrayList<TaskDTO>>(){}.getType();
                             CurrentTaskEmployeeFragment.this.taskDTOList = gson.fromJson(listTaskJson, type);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                            CardViewAdapter adapter = new CardViewAdapter(CurrentTaskEmployeeFragment.this.taskDTOList, CurrentTaskEmployeeFragment.this.getActivity());
+                            CardViewAdapter adapter = new CardViewAdapter(CurrentTaskEmployeeFragment.this.taskDTOList, CurrentTaskEmployeeFragment.this.getActivity(), 1);
+                            taskRecycle.setLayoutManager(linearLayoutManager);
+                            taskRecycle.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                        }
+                    });
+            asyncHttpClient.post(getContext(), ServerConfig.BASE_URL + "/pendingEmployeeTask", stringEntity, "application/json",
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            RecyclerView taskRecycle = (RecyclerView) rootView.findViewById(R.id.task_recycler_pending_employee);
+                            Gson gson = new Gson();
+                            String listTaskJson = new String(responseBody);
+                            Type type = new TypeToken<ArrayList<TaskDTO>>(){}.getType();
+                            CurrentTaskEmployeeFragment.this.taskDTOList = gson.fromJson(listTaskJson, type);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                            CardViewAdapter adapter = new CardViewAdapter(CurrentTaskEmployeeFragment.this.taskDTOList, CurrentTaskEmployeeFragment.this.getActivity(), 1);
+                            taskRecycle.setLayoutManager(linearLayoutManager);
+                            taskRecycle.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                        }
+                    });
+            asyncHttpClient.post(getContext(), ServerConfig.BASE_URL + "/suspendEmployeeTask", stringEntity, "application/json",
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            RecyclerView taskRecycle = (RecyclerView) rootView.findViewById(R.id.task_recycler_suspend_employee);
+                            Gson gson = new Gson();
+                            String listTaskJson = new String(responseBody);
+                            Type type = new TypeToken<ArrayList<TaskDTO>>(){}.getType();
+                            CurrentTaskEmployeeFragment.this.taskDTOList = gson.fromJson(listTaskJson, type);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                            CardViewAdapter adapter = new CardViewAdapter(CurrentTaskEmployeeFragment.this.taskDTOList, CurrentTaskEmployeeFragment.this.getActivity(), 1);
+                            taskRecycle.setLayoutManager(linearLayoutManager);
+                            taskRecycle.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                        }
+                    });
+            asyncHttpClient.post(getContext(), ServerConfig.BASE_URL + "/declineEmployeeTask", stringEntity, "application/json",
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            RecyclerView taskRecycle = (RecyclerView) rootView.findViewById(R.id.task_recycler_decline_employee);
+                            Gson gson = new Gson();
+                            String listTaskJson = new String(responseBody);
+                            Type type = new TypeToken<ArrayList<TaskDTO>>(){}.getType();
+                            CurrentTaskEmployeeFragment.this.taskDTOList = gson.fromJson(listTaskJson, type);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                            CardViewAdapter adapter = new CardViewAdapter(CurrentTaskEmployeeFragment.this.taskDTOList, CurrentTaskEmployeeFragment.this.getActivity(), 1);
                             taskRecycle.setLayoutManager(linearLayoutManager);
                             taskRecycle.setAdapter(adapter);
                         }

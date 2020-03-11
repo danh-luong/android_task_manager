@@ -66,7 +66,7 @@ public class CurrentTaskManagerFragment extends Fragment {
                             Type type = new TypeToken<ArrayList<TaskDTO>>(){}.getType();
                             CurrentTaskManagerFragment.this.taskDTOList = gson.fromJson(listTaskJson, type);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                            CardViewAdapter adapter = new CardViewAdapter(CurrentTaskManagerFragment.this.taskDTOList, CurrentTaskManagerFragment.this.getActivity());
+                            CardViewAdapter adapter = new CardViewAdapter(CurrentTaskManagerFragment.this.taskDTOList, CurrentTaskManagerFragment.this.getActivity(), 1);
                             taskRecycle.setLayoutManager(linearLayoutManager);
                             taskRecycle.setAdapter(adapter);
                         }
