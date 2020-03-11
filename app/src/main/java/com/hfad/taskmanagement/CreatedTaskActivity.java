@@ -52,6 +52,8 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
     private LinearLayout lnAssignee;
     private List<UserDTO> listAssignees;
     private String assigneeName;
+    private List<String> usernameList = new ArrayList<>();
+    private int choosenPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,13 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
                                 for (int i = 0; i < CreatedTaskActivity.this.listAssignees.size(); i++) {
                                     if (ServerConfig.currentAccount.getRoleId() == 3) {
                                         if (Integer.parseInt(CreatedTaskActivity.this.listAssignees.get(i).getRoleId()) != 1) {
-                                            listOfAssigneeName.add(CreatedTaskActivity.this.listAssignees.get(i).getName());
+                                            if (ServerConfig.currentAccount.getUsername().equals(CreatedTaskActivity.this.listAssignees.get(i).getUsername())) {
+                                                listOfAssigneeName.add("My Self");
+                                                CreatedTaskActivity.this.usernameList.add(ServerConfig.currentAccount.getUsername());
+                                            } else {
+                                                listOfAssigneeName.add(CreatedTaskActivity.this.listAssignees.get(i).getName());
+                                                CreatedTaskActivity.this.usernameList.add(CreatedTaskActivity.this.listAssignees.get(i).getUsername());
+                                            }
                                         }
                                     } else if (ServerConfig.currentAccount.getRoleId() == 1) {
                                             listOfAssigneeName.add(CreatedTaskActivity.this.listAssignees.get(i).getName());
@@ -102,6 +110,7 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                         assigneeName = spAssignee.getSelectedItem().toString();
+                                        choosenPosition = position;
                                     }
 
                                     @Override
@@ -188,10 +197,9 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
                         txtStartDateString, txtEndDateString, dateFormat.format(currentDate).toString(),
                         null, "Pending", username);
             } else {
-                //Not Done
                 taskCreatedDTO = new TaskCreatedDTO(txtTaskName, txtDescriptionTask,
                         txtStartDateString, txtEndDateString, dateFormat.format(currentDate).toString(),
-                        username, "Pending", assigneeName);
+                        username, "Pending", usernameList.get(choosenPosition));
             }
             Gson gson = new Gson();
             String taskDetail = gson.toJson(taskCreatedDTO);
@@ -200,8 +208,13 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
                     new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            Intent intent = new Intent(CreatedTaskActivity.this, HomeEmployeeActivity.class);
-                            intent.putExtra("username", CreatedTaskActivity.this.username);
+                            Intent intent = null;
+                            if (ServerConfig.currentAccount.getRoleId() == 2) {
+                                intent = new Intent(CreatedTaskActivity.this, HomeEmployeeActivity.class);
+                            } else {
+                                intent = new Intent(CreatedTaskActivity.this, HomeManagerActivity.class);
+                            }
+                            intent.putExtra("username", ServerConfig.currentAccount.getUsername());
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();

@@ -8,8 +8,11 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -17,6 +20,8 @@ import com.google.gson.reflect.TypeToken;
 import com.hfad.taskmanagement.dto.HistoryTaskDTO;
 import com.hfad.taskmanagement.dto.TaskDetailDTO;
 import com.hfad.taskmanagement.dto.UpdatedTaskDTO;
+import com.hfad.taskmanagement.dto.UserDTO;
+import com.hfad.taskmanagement.dto.UserTaskIdSpinner;
 import com.hfad.taskmanagement.jwt.JWT;
 import com.hfad.taskmanagement.server.ServerConfig;
 import com.loopj.android.http.AsyncHttpClient;
@@ -40,6 +45,11 @@ public class TaskDetailInManagerActivity extends AppCompatActivity implements Da
     private String taskId;
     private DatePickerDialog datePickerDialog;
     private DatePicker picker;
+    private Spinner spAssignee;
+    private List<UserDTO> listAssignees;
+    private String assigneeName;
+    private int choosenPosition;
+    private List<String> idOfUserSpinner = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +121,46 @@ public class TaskDetailInManagerActivity extends AppCompatActivity implements Da
                                 HistoryCardViewAdapter adapter = new HistoryCardViewAdapter(TaskDetailInManagerActivity.this.historyTaskDTOS);
                                 historyTaskRecycler.setLayoutManager(linearLayoutManager);
                                 historyTaskRecycler.setAdapter(adapter);
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                            }
+                        });
+                UserTaskIdSpinner userTaskIdSpinner = new UserTaskIdSpinner(ServerConfig.currentAccount.getUsername(), taskId);
+                asyncHttpClient.addHeader(JWT.HEADER, JWT.jwt.get(JWT.HEADER));
+                StringEntity stringEntity1 = new StringEntity(new Gson().toJson(userTaskIdSpinner));
+                asyncHttpClient.post(TaskDetailInManagerActivity.this, ServerConfig.BASE_URL + "/loadEmployeeByGroupInAssigningTask", stringEntity1, "application/json",
+                        new AsyncHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                spAssignee = TaskDetailInManagerActivity.this.findViewById(R.id.spAssignee);
+                                Type type = new TypeToken<ArrayList<UserDTO>>(){}.getType();
+                                Gson gson = new Gson();
+                                String listUserJson = new String(responseBody);
+                                TaskDetailInManagerActivity.this.listAssignees = gson.fromJson(listUserJson, type);
+                                List<String> listOfAssigneeName = new ArrayList<>();
+                                for (int i = 0; i < TaskDetailInManagerActivity.this.listAssignees.size(); i++) {
+                                    listOfAssigneeName.add(TaskDetailInManagerActivity.this.listAssignees.get(i).getName());
+                                    idOfUserSpinner.add(TaskDetailInManagerActivity.this.listAssignees.get(i).getId());
+                                }
+                                ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(TaskDetailInManagerActivity.this,
+                                        android.R.layout.simple_spinner_item, listOfAssigneeName);
+                                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spAssignee.setAdapter(dataAdapter);
+                                spAssignee.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                        assigneeName = spAssignee.getSelectedItem().toString();
+                                        choosenPosition = position;
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                });
                             }
 
                             @Override
@@ -199,5 +249,33 @@ public class TaskDetailInManagerActivity extends AppCompatActivity implements Da
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String result = dayOfMonth + "-" + (month + 1) + "-" + year;
         txtEndDate.setText(result);
+    }
+
+    public void clickToAssignTask(View view) {
+        String userNameAssignee = idOfUserSpinner.get(choosenPosition);
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+        UserTaskIdSpinner userTaskIdSpinner = new UserTaskIdSpinner(userNameAssignee, taskId);
+        Gson gson = new Gson();
+        try {
+            StringEntity stringEntity = new StringEntity(gson.toJson(userTaskIdSpinner));
+            asyncHttpClient.addHeader(JWT.HEADER, JWT.jwt.get(JWT.HEADER));
+            asyncHttpClient.post(this, ServerConfig.BASE_URL + "/assignTaskToAnotherEmployee", stringEntity, "application/json",
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            Intent intent= new Intent(TaskDetailInManagerActivity.this, HomeManagerActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("username", ServerConfig.currentAccount.getUsername());
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
