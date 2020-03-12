@@ -110,6 +110,10 @@ public class TaskDetailActivity extends AppCompatActivity implements DatePickerD
                                 TaskDetailActivity.this.findViewById(R.id.btnStartDate).setVisibility(View.VISIBLE);
                                 TaskDetailActivity.this.findViewById(R.id.btnSaveInfoTask).setVisibility(View.VISIBLE);
                             }
+
+                            if (taskDetailDTO.getStatus().equals("Doing")) {
+                                TaskDetailActivity.this.findViewById(R.id.btnSubmitTask).setVisibility(View.VISIBLE);
+                            }
                         }
 
                         @Override
@@ -243,5 +247,14 @@ public class TaskDetailActivity extends AppCompatActivity implements DatePickerD
         picker = datePickerDialog.getDatePicker();
         picker.setTag(current);
         datePickerDialog.show();
+    }
+
+    public void clickToSubmitTask(View view) {
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

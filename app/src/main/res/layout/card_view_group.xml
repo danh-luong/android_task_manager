@@ -21,14 +21,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="Name: "
+            android:text="Task Name: "
             android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtEmployeeName"
+            android:id="@+id/txtGroupName"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginStart="4dp"
@@ -43,21 +43,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="Phone: "
+            android:text="Description: "
             android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEmployeeName" />
+            app:layout_constraintTop_toBottomOf="@+id/txtGroupName" />
 
         <TextView
-            android:id="@+id/txtPhone"
+            android:id="@+id/txtDescriptionGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:text="Phone"
             app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/txtEmployeeName" />
+            app:layout_constraintTop_toBottomOf="@+id/txtGroupName" />
 
         <TextView
             android:id="@+id/textView4"
@@ -65,24 +65,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="Email: "
+            android:text="Manager: "
             android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
-            android:id="@+id/txtEmail"
+            android:id="@+id/txtManagerName"
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="12dp"
             android:text="Email"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/txtPhone" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDescriptionGroup" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </LinearLayout>

@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TaskDetailInManagerActivity"></activity>
+        <activity android:name=".CreateNewGroupActivity"></activity>
+        <activity android:name=".CurrentEmployeeInGroupActivity" />
+        <activity android:name=".InfoOfUserInAdminActivity" />
+        <activity android:name=".CreatedTaskActivityAdmin" />
+        <activity android:name=".TaskDetailInManagerActivity" />
         <activity android:name=".TaskOfEmployeeInManagerActivity" />
         <activity android:name=".TaskDetailPendingActivity" />
         <activity android:name=".CreatedTaskActivity" />

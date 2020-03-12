@@ -6,5 +6,7 @@
 
     <string name="current_task">Task</string>
     <string name="profile">Profile</string>
-    <string name="current_employee">Employee</string>
+    <string name="current_employee">Employee Task</string>
+    <string name="manage_employee">Manage Employee</string>
+    <string name="manage_group">Manage Group</string>
 </resources>

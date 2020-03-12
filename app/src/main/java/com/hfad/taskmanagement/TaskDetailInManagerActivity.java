@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ public class TaskDetailInManagerActivity extends AppCompatActivity implements Da
     private String assigneeName;
     private int choosenPosition;
     private List<String> idOfUserSpinner = new ArrayList<>();
+    LinearLayout lnAssignTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,9 @@ public class TaskDetailInManagerActivity extends AppCompatActivity implements Da
                                 Gson gson = new Gson();
                                 String taskDetailJson = new String(responseBody);
                                 TaskDetailDTO taskDetailDTO = gson.fromJson(taskDetailJson, TaskDetailDTO.class);
+                                if (taskDetailDTO.getStatus().equals("Suspend")) {
+                                    TaskDetailInManagerActivity.this.findViewById(R.id.lnAssignTask).setVisibility(View.GONE);
+                                }
                                 txtTaskName = TaskDetailInManagerActivity.this.findViewById(R.id.txtTaskName);
                                 txtDesctiptionTask = TaskDetailInManagerActivity.this.findViewById(R.id.txtDesctiptionTask);
                                 txtStartDate = TaskDetailInManagerActivity.this.findViewById(R.id.txtStartDate);
@@ -217,8 +222,10 @@ public class TaskDetailInManagerActivity extends AppCompatActivity implements Da
                     new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            txtStatus = TaskDetailInManagerActivity.this.findViewById(R.id.txtStatus);
-                            txtStatus.setText("Suspend");
+                            Intent intent = new Intent(TaskDetailInManagerActivity.this, TaskDetailInManagerActivity.class);
+                            intent.putExtra("taskId", taskId);
+                            finish();
+                            startActivity(intent);
                         }
 
                         @Override

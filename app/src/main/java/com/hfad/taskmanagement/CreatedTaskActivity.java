@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -46,7 +45,7 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
     private DatePickerDialog datePickerDialog;
     private DatePicker picker;
     private String username;
-    private TextView txtErrorDate, txtErrorTaskName;
+    private TextView txtErrorDate, txtErrorTaskName, txtAssignee;
     private EditText edtTaskName, edtDesctiptionTask;
     private Spinner spAssignee;
     private LinearLayout lnAssignee;
@@ -68,6 +67,7 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
         edtTaskName = findViewById(R.id.edtTaskName);
         edtDesctiptionTask = findViewById(R.id.txtDescriptionTask);
         spAssignee = findViewById(R.id.spAssignee);
+        txtAssignee = findViewById(R.id.txtAssignee);
         lnAssignee = findViewById(R.id.lnAssignee);
         if (ServerConfig.currentAccount.getRoleId() != 1) {
             lnAssignee.setVisibility(View.VISIBLE);
@@ -85,6 +85,11 @@ public class CreatedTaskActivity extends AppCompatActivity implements DatePicker
                                 Type type = new TypeToken<ArrayList<UserDTO>>(){}.getType();
                                 Gson gson = new Gson();
                                 spAssignee = CreatedTaskActivity.this.findViewById(R.id.spAssignee);
+                                txtAssignee = CreatedTaskActivity.this.findViewById(R.id.txtAssignee);
+                                if (ServerConfig.currentAccount.getRoleId() == 2) {
+                                    spAssignee.setVisibility(View.GONE);
+                                    txtAssignee.setVisibility(View.GONE);
+                                }
                                 CreatedTaskActivity.this.listAssignees = gson.fromJson(listUserJson, type);
                                 List<String> listOfAssigneeName = new ArrayList<>();
                                 for (int i = 0; i < CreatedTaskActivity.this.listAssignees.size(); i++) {

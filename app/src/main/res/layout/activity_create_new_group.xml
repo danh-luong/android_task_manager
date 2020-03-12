@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CreateNewGroupActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Group Infomation:"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Group Name:"/>
+        <EditText
+            android:id="@+id/edtGroupName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/txttErrorGroupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please input Group Name"
+        android:textColor="@color/colorErorrRed"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description Group:"/>
+        <EditText
+            android:id="@+id/edtDescriptionGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/txtErrorDescriptionGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please input some description"
+        android:textColor="@color/colorErorrRed"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        android:onClick="clickToCreateNewGroup"/>
+
+</LinearLayout>

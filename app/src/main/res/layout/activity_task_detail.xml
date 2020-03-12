@@ -213,6 +213,15 @@
             android:text="Save"
             android:onClick="clickToSaveDetailTask"/>
 
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btnSubmitTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Submit"
+            android:onClick="clickToSubmitTask"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
