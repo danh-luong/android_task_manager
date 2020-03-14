@@ -49,7 +49,7 @@ public class CardViewGroupAdapter extends
             public void onClick(View v) {
                 Intent intent = new Intent(CardViewGroupAdapter.this.activity, CurrentEmployeeInGroupActivity.class);
                 intent.putExtra("username", ServerConfig.currentAccount.getUsername());
-                intent.putExtra("taskId", list.get(position).getGroupId());
+                intent.putExtra("groupId", list.get(position).getGroupId());
                 CardViewGroupAdapter.this.activity.startActivity(intent);
             }
         });

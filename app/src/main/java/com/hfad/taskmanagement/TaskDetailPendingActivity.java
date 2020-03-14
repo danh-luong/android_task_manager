@@ -89,6 +89,9 @@ public class TaskDetailPendingActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                             Intent intent = new Intent(TaskDetailPendingActivity.this, HomeManagerActivity.class);
+                            if (ServerConfig.currentAccount.getRoleId() == 1) {
+                                intent = new Intent(TaskDetailPendingActivity.this, HomeAdminActivity.class);
+                            }
                             intent.putExtra("username", ServerConfig.currentAccount.getUsername());
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
@@ -118,6 +121,9 @@ public class TaskDetailPendingActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                             Intent intent = new Intent(TaskDetailPendingActivity.this, HomeManagerActivity.class);
+                            if (ServerConfig.currentAccount.getRoleId() == 1) {
+                                intent = new Intent(TaskDetailPendingActivity.this, HomeAdminActivity.class);
+                            }
                             intent.putExtra("username", ServerConfig.currentAccount.getUsername());
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);

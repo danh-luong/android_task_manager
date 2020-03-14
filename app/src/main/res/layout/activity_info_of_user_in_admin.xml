@@ -32,6 +32,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/edtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,6 +55,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/edtPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,6 +79,7 @@
                 android:inputType="phone"/>
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/edtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,6 +105,7 @@
                 android:inputType="phone"/>
 
             <EditText
+                android:focusable="false"
                 android:id="@+id/edtAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -182,6 +186,12 @@
                 android:text="Abc Bakery, Q.1, TP.HCM" />
         </LinearLayout>
         <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update User Info"
+            android:layout_marginBottom="10dp"
+            android:onClick="clickToUpdateUserInfo"/>
+        <Button
             android:visibility="gone"
             android:id="@+id/btnDeactive"
             android:layout_width="match_parent"
@@ -190,7 +200,8 @@
             android:text="DeActive"
             android:textStyle="bold"
             android:textColor="@color/colorWhite"
-            android:onClick="clickToDeactiveAccount"/>
+            android:onClick="clickToDeactiveAccount"
+            android:layout_marginBottom="5dp"/>
         <Button
             android:visibility="gone"
             android:id="@+id/btnActive"
@@ -200,7 +211,8 @@
             android:text="Active"
             android:textStyle="bold"
             android:textColor="@color/colorWhite"
-            android:onClick="clickToActiveAccount"/>
+            android:onClick="clickToActiveAccount"
+            android:layout_marginBottom="5dp"/>
     </LinearLayout>
 
 </ScrollView>

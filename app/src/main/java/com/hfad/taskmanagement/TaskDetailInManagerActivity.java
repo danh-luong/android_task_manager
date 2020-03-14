@@ -270,7 +270,12 @@ public class TaskDetailInManagerActivity extends AppCompatActivity implements Da
                     new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                            Intent intent= new Intent(TaskDetailInManagerActivity.this, HomeManagerActivity.class);
+                            Intent intent = null;
+                            if (ServerConfig.currentAccount.getRoleId() == 1) {
+                                intent= new Intent(TaskDetailInManagerActivity.this, HomeAdminActivity.class);
+                            } else {
+                                new Intent(TaskDetailInManagerActivity.this, HomeManagerActivity.class);
+                            }
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("username", ServerConfig.currentAccount.getUsername());
                             startActivity(intent);

@@ -6,6 +6,14 @@ public class UserInfoAdminDTO implements Serializable {
 
     private String id, name, email, phone, address, roleName, groupName, status;
 
+    public UserInfoAdminDTO(String id, String name, String email, String phone, String address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
+
     public UserInfoAdminDTO(String id, String name, String email, String phone, String address, String roleName, String groupName, String status) {
         this.id = id;
         this.name = name;

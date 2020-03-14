@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.hfad.taskmanagement.dto.UpdatedUserInfoDTO;
 import com.hfad.taskmanagement.dto.UserInfoAdminDTO;
 import com.hfad.taskmanagement.dto.UserProfile;
 import com.hfad.taskmanagement.jwt.JWT;
@@ -33,6 +34,14 @@ public class InfoOfUserInAdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_of_user_in_admin);
+        edtName = InfoOfUserInAdminActivity.this.findViewById(R.id.edtName);
+        edtPhone = InfoOfUserInAdminActivity.this.findViewById(R.id.edtPhone);
+        edtEmail = InfoOfUserInAdminActivity.this.findViewById(R.id.edtEmail);
+        edtAddress = InfoOfUserInAdminActivity.this.findViewById(R.id.edtAddress);
+        edtName.setFocusableInTouchMode(true);
+        edtPhone.setFocusableInTouchMode(true);
+        edtEmail.setFocusableInTouchMode(true);
+        edtAddress.setFocusableInTouchMode(true);
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
@@ -123,6 +132,40 @@ public class InfoOfUserInAdminActivity extends AppCompatActivity {
                             Intent intent = new Intent(InfoOfUserInAdminActivity.this, HomeAdminActivity.class);
                             finish();
                             intent.putExtra("username", ServerConfig.currentAccount.getUsername());
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickToUpdateUserInfo(View view) {
+        String txtUserName = edtName.getText().toString();
+        String txtPhone = edtPhone.getText().toString();
+        String txtEmail = edtEmail.getText().toString();
+        String address = edtAddress.getText().toString();
+
+        UpdatedUserInfoDTO updatedUserInfoAdminDTO =
+                new UpdatedUserInfoDTO(userInfoAdminDTO.getId(), txtUserName, txtEmail, txtPhone, address, ServerConfig.currentAccount.getUsername());
+        try {
+            AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+            asyncHttpClient.addHeader(JWT.HEADER, JWT.jwt.get(JWT.HEADER));
+            Gson gson = new Gson();
+            String updatedUserInfoAdminDTOJson = gson.toJson(updatedUserInfoAdminDTO);
+            StringEntity stringEntity = new StringEntity(updatedUserInfoAdminDTOJson);
+            asyncHttpClient.post(this, ServerConfig.BASE_URL + "/updateUserInfo", stringEntity, "application/json",
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            Intent intent = new Intent(InfoOfUserInAdminActivity.this, HomeAdminActivity.class);
+                            intent.putExtra("username", ServerConfig.currentAccount.getUsername());
+                            finish();
                             startActivity(intent);
                         }
 
