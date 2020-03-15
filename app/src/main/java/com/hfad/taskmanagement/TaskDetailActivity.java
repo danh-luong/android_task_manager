@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hfad.taskmanagement.dto.HistoryTaskDTO;
+import com.hfad.taskmanagement.dto.InsertNewTaskDTO;
 import com.hfad.taskmanagement.dto.TaskCreatedDTO;
 import com.hfad.taskmanagement.dto.TaskDetailDTO;
 import com.hfad.taskmanagement.jwt.JWT;
@@ -251,8 +251,30 @@ public class TaskDetailActivity extends AppCompatActivity implements DatePickerD
 
     public void clickToSubmitTask(View view) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+        Gson gson = new Gson();
         try {
+            InsertNewTaskDTO insertNewTaskDTO = new InsertNewTaskDTO(taskId, ServerConfig.currentAccount.getUsername());
+            asyncHttpClient.addHeader(JWT.HEADER, JWT.jwt.get(JWT.HEADER));
+            StringEntity stringEntity = new StringEntity(gson.toJson(insertNewTaskDTO));
+            asyncHttpClient.post(this, ServerConfig.BASE_URL + "/submitTask", stringEntity, "application/json",
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            Intent intent = new Intent(TaskDetailActivity.this, HomeEmployeeActivity.class);
+                            if (ServerConfig.currentAccount.getRoleId() == 3) {
+                                intent = new Intent(TaskDetailActivity.this, HomeManagerActivity.class);
+                            }
+                            intent.putExtra("username", ServerConfig.currentAccount.getUsername());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            finish();
+                            startActivity(intent);
+                        }
 
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                        }
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }

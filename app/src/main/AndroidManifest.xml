@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateNewGroupActivity"></activity>
+        <activity android:name=".TaskReviewDetailActivity"></activity>
+        <activity android:name=".AcceptWaitingTaskManager" />
+        <activity android:name=".CreateNewGroupActivity" />
         <activity android:name=".CurrentEmployeeInGroupActivity" />
         <activity android:name=".InfoOfUserInAdminActivity" />
         <activity android:name=".CreatedTaskActivityAdmin" />

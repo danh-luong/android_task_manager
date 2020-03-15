@@ -74,6 +74,22 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/task_recycler_decline_employee"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit Task:"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/task_recycler_submit_task_employee"/>
+        </LinearLayout>
         <Button
             android:id="@+id/btnCreateNewTask"
             android:layout_width="match_parent"

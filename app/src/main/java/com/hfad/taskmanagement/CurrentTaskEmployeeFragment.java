@@ -135,6 +135,26 @@ public class CurrentTaskEmployeeFragment extends Fragment {
 
                         }
                     });
+            asyncHttpClient.post(getContext(), ServerConfig.BASE_URL + "/reviewedTask", stringEntity, "application/json",
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            RecyclerView taskRecycle = (RecyclerView) rootView.findViewById(R.id.task_recycler_submit_task_employee);
+                            Gson gson = new Gson();
+                            String listTaskJson = new String(responseBody);
+                            Type type = new TypeToken<ArrayList<TaskDTO>>(){}.getType();
+                            CurrentTaskEmployeeFragment.this.taskDTOList = gson.fromJson(listTaskJson, type);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                            ReviewedTaskAdapter adapter = new ReviewedTaskAdapter(CurrentTaskEmployeeFragment.this.taskDTOList, CurrentTaskEmployeeFragment.this.getActivity(), 1);
+                            taskRecycle.setLayoutManager(linearLayoutManager);
+                            taskRecycle.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                        }
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }

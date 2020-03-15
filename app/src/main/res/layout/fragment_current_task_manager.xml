@@ -89,6 +89,22 @@
                 android:id="@+id/task_recycler_pending"
                 android:scrollbars="vertical"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Waiting Task:"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/task_recycler_waiting"
+                android:scrollbars="vertical"/>
+        </LinearLayout>
         <Button
             android:id="@+id/btnCreateNewTask"
             android:layout_width="match_parent"
