@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".ProfileFragment">
+    tools:context=".EmployeeProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:orientation="vertical">
 
         <ImageView
@@ -33,14 +33,15 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:focusable="false"
                 android:id="@+id/edtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
+                android:focusable="false"
                 android:text="Nguyen Thi Quynh Anh" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,14 +57,15 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:focusable="false"
                 android:id="@+id/edtPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
+                android:focusable="false"
                 android:text="0306055489979" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,20 +76,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
                 android:layout_marginTop="5dp"
+                android:inputType="phone"
                 android:text="Email: "
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:inputType="phone"/>
+                android:textStyle="bold" />
 
             <EditText
-                android:focusable="false"
                 android:id="@+id/edtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:text="quynhanhnguyen@gmail.com"
-                android:inputType="textEmailAddress"/>
+                android:focusable="false"
+                android:inputType="textEmailAddress"
+                android:text="quynhanhnguyen@gmail.com" />
         </LinearLayout>
 
         <LinearLayout
@@ -100,30 +102,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
                 android:layout_marginTop="5dp"
+                android:inputType="phone"
                 android:text="Address: "
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:inputType="phone"/>
+                android:textStyle="bold" />
 
             <EditText
-                android:focusable="false"
                 android:id="@+id/edtAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
+                android:focusable="false"
                 android:text="Abc Bakery, Q.1, TP.HCM" />
         </LinearLayout>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/qrImage"/>
-        <Button
-            android:id="@+id/btnLogOut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Log Out"/>
     </LinearLayout>
-
 
 </ScrollView>

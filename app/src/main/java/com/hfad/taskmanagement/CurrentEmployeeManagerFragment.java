@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,6 +38,7 @@ public class CurrentEmployeeManagerFragment extends Fragment {
 
     private List<EmployeeDTO> employeeDTOList;
     private String username;
+    private Button btnScanQrCode;
 
     public CurrentEmployeeManagerFragment() {
         // Required empty public constructor
@@ -50,6 +52,7 @@ public class CurrentEmployeeManagerFragment extends Fragment {
         username = intent.getStringExtra("username");
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         JSONObject jsonObject = new JSONObject();
+        btnScanQrCode = rootView.findViewById(R.id.btnScanQrCode);
         try {
             jsonObject.put("username", username);
             asyncHttpClient.addHeader(JWT.HEADER, JWT.jwt.get(JWT.HEADER));
@@ -74,6 +77,14 @@ public class CurrentEmployeeManagerFragment extends Fragment {
 
                         }
                     });
+            btnScanQrCode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ScanQRCodeActivity.class);
+                    intent.putExtra("username", ServerConfig.currentAccount.getUsername());
+                    startActivity(intent);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

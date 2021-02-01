@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hfad.taskmanagement.dto.HistoryTaskDTO;
+import com.hfad.taskmanagement.dto.SuspendDTO;
 import com.hfad.taskmanagement.dto.TaskDetailDTO;
 import com.hfad.taskmanagement.dto.UpdatedTaskDTO;
 import com.hfad.taskmanagement.dto.UserDTO;
@@ -30,6 +31,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -214,10 +216,11 @@ public class TaskDetailInManagerActivity extends AppCompatActivity implements Da
     public void clickToSuspendTask(View view) {
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         JSONObject jsonObject = new JSONObject();
+        Gson gson = new Gson();
         try {
-            jsonObject.put("taskId", taskId);
+            SuspendDTO suspendDTO = new SuspendDTO(taskId, ServerConfig.currentAccount.getUsername());
             asyncHttpClient.addHeader(JWT.HEADER, JWT.jwt.get(JWT.HEADER));
-            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            StringEntity stringEntity = new StringEntity(gson.toJson(suspendDTO));
             asyncHttpClient.post(this, ServerConfig.BASE_URL + "/suspendTask", stringEntity, "application/json",
                     new AsyncHttpResponseHandler() {
                         @Override
@@ -274,7 +277,7 @@ public class TaskDetailInManagerActivity extends AppCompatActivity implements Da
                             if (ServerConfig.currentAccount.getRoleId() == 1) {
                                 intent= new Intent(TaskDetailInManagerActivity.this, HomeAdminActivity.class);
                             } else {
-                                new Intent(TaskDetailInManagerActivity.this, HomeManagerActivity.class);
+                                intent = new Intent(TaskDetailInManagerActivity.this, HomeManagerActivity.class);
                             }
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("username", ServerConfig.currentAccount.getUsername());

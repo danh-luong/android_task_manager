@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,6 +38,8 @@ public class CurrentEmployeeAdminFragment extends Fragment {
 
     private List<EmployeeDTO> employeeDTOList;
     private String username;
+    private Button btnCreateNewEmployee;
+    private Button btnScanQrCode;
 
     public CurrentEmployeeAdminFragment() {
         // Required empty public constructor
@@ -62,7 +65,8 @@ public class CurrentEmployeeAdminFragment extends Fragment {
                             RecyclerView taskRecycle = (RecyclerView) rootView.findViewById(R.id.task_recycler_employee_admin);
                             Gson gson = new Gson();
                             String listTaskJson = new String(responseBody);
-                            Type type = new TypeToken<ArrayList<EmployeeDTO>>(){}.getType();
+                            Type type = new TypeToken<ArrayList<EmployeeDTO>>() {
+                            }.getType();
                             CurrentEmployeeAdminFragment.this.employeeDTOList = gson.fromJson(listTaskJson, type);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                             EmployeeCardViewAdapterAdmin adapter = new EmployeeCardViewAdapterAdmin(CurrentEmployeeAdminFragment.this.employeeDTOList, CurrentEmployeeAdminFragment.this.getActivity());
@@ -75,6 +79,23 @@ public class CurrentEmployeeAdminFragment extends Fragment {
 
                         }
                     });
+            btnCreateNewEmployee = rootView.findViewById(R.id.btnCreateNewEmployee);
+            btnCreateNewEmployee.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CurrentEmployeeAdminFragment.this.getActivity(), CreateNewEmployeeActivity.class);
+                    startActivity(intent);
+                }
+            });
+            btnScanQrCode = rootView.findViewById(R.id.btnScanQrCode);
+            btnScanQrCode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ScanQRCodeActivity.class);
+                    intent.putExtra("username", ServerConfig.currentAccount.getUsername());
+                    startActivity(intent);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

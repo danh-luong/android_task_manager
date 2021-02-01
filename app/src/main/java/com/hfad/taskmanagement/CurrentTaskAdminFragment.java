@@ -77,7 +77,26 @@ public class CurrentTaskAdminFragment extends Fragment {
 
                         }
                     });
+            asyncHttpClient.post(getContext(), ServerConfig.BASE_URL + "/waitingTaskAdmin", stringEntity, "application/json",
+                    new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            RecyclerView taskRecycle = (RecyclerView) rootView.findViewById(R.id.task_recycler_waiting);
+                            Gson gson = new Gson();
+                            String listTaskJson = new String(responseBody);
+                            Type type = new TypeToken<ArrayList<TaskDTO>>() {}.getType();
+                            CurrentTaskAdminFragment.this.taskDTOList = gson.fromJson(listTaskJson, type);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                            WaitingTaskAdapter adapter = new WaitingTaskAdapter(CurrentTaskAdminFragment.this.taskDTOList, CurrentTaskAdminFragment.this.getActivity());
+                            taskRecycle.setLayoutManager(linearLayoutManager);
+                            taskRecycle.setAdapter(adapter);
+                        }
 
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                        }
+                    });
             btnCreateNewTask = (Button)rootView.findViewById(R.id.btnCreateNewTask);
             btnCreateNewTask.setOnClickListener(new View.OnClickListener() {
                 @Override

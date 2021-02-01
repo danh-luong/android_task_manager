@@ -21,6 +21,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/employee_in_group"/>
+        <TextView
+            android:id="@+id/txtErrorManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Manager is added"
+            android:textColor="@color/colorErorrRed"
+            android:visibility="gone"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

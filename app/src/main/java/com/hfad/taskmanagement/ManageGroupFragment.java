@@ -89,5 +89,4 @@ public class ManageGroupFragment extends Fragment {
         }
         return rootView;
     }
-
 }

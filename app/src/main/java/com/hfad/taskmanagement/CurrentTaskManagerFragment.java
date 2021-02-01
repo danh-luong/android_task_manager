@@ -63,8 +63,7 @@ public class CurrentTaskManagerFragment extends Fragment {
                             RecyclerView taskRecycle = (RecyclerView) rootView.findViewById(R.id.task_recycler);
                             Gson gson = new Gson();
                             String listTaskJson = new String(responseBody);
-                            Type type = new TypeToken<ArrayList<TaskDTO>>() {
-                            }.getType();
+                            Type type = new TypeToken<ArrayList<TaskDTO>>() {}.getType();
                             CurrentTaskManagerFragment.this.taskDTOList = gson.fromJson(listTaskJson, type);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                             CardViewAdapter adapter = new CardViewAdapter(CurrentTaskManagerFragment.this.taskDTOList, CurrentTaskManagerFragment.this.getActivity(), 1);
@@ -171,8 +170,7 @@ public class CurrentTaskManagerFragment extends Fragment {
                             RecyclerView taskRecycle = (RecyclerView) rootView.findViewById(R.id.task_recycler_waiting);
                             Gson gson = new Gson();
                             String listTaskJson = new String(responseBody);
-                            Type type = new TypeToken<ArrayList<TaskDTO>>() {
-                            }.getType();
+                            Type type = new TypeToken<ArrayList<TaskDTO>>() {}.getType();
                             CurrentTaskManagerFragment.this.taskDTOList = gson.fromJson(listTaskJson, type);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                             WaitingTaskAdapter adapter = new WaitingTaskAdapter(CurrentTaskManagerFragment.this.taskDTOList, CurrentTaskManagerFragment.this.getActivity());

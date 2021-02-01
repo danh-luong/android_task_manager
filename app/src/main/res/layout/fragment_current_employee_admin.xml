@@ -20,6 +20,17 @@
             android:layout_height="match_parent"
             android:id="@+id/task_recycler_employee_admin"
             android:scrollbars="vertical"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create New Employee"
+            android:id="@+id/btnCreateNewEmployee"/>
+
+        <Button
+            android:id="@+id/btnScanQrCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Find Employee With QRCode"/>
     </LinearLayout>
 
 </ScrollView>

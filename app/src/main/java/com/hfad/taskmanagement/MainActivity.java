@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText edtUsername, edtPassword;
     private TextView errorTextView;
+    private TextView errorTextViewRoleGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         edtUsername =  findViewById(R.id.txtUsername);
         edtPassword = findViewById(R.id.txtPassword);
         errorTextView = findViewById(R.id.errorTextView);
+        errorTextViewRoleGroup = findViewById(R.id.errorTextViewRoleGroup);
     }
 
     public void loginUser(View view) {
@@ -54,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     AccountDTO accountDTO = gson.fromJson(accountJson, AccountDTO.class);
                     ServerConfig.currentAccount = accountDTO;
+                    if (accountDTO.getRoleId() == 0) {
+                        errorTextViewRoleGroup.setVisibility(View.VISIBLE);
+                        return;
+                    } else {
+                        errorTextViewRoleGroup.setVisibility(View.GONE);
+                    }
                     if (accountDTO.getRoleId() == 1) {
                         Intent adminIntent = new Intent(MainActivity.this, HomeAdminActivity.class);
                         adminIntent.putExtra("username", accountDTO.getUsername());

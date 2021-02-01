@@ -36,12 +36,14 @@ public class AcceptWaitingTaskManager extends AppCompatActivity {
     private Spinner spRate;
     private String rate;
     private EditText edtFeedBack;
+    private TextView txtErrorFeedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accept_waiting_task_manager);
         edtFeedBack = findViewById(R.id.txtFeedBack);
+        txtErrorFeedback = findViewById(R.id.txtErrorFeedBack);
         try {
             Intent intent = this.getIntent();
             taskId = intent.getStringExtra("taskId");
@@ -112,6 +114,10 @@ public class AcceptWaitingTaskManager extends AppCompatActivity {
     public void clickToAcceptTask(View view) {
         String txtFeedBack = edtFeedBack.getText().toString();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+        if (txtFeedBack.trim().equals("") || rate.trim().equals("")) {
+            txtErrorFeedback.setVisibility(View.VISIBLE);
+            return;
+        }
         try {
             Gson gson = new Gson();
             asyncHttpClient.addHeader(JWT.HEADER, JWT.jwt.get(JWT.HEADER));
@@ -140,6 +146,10 @@ public class AcceptWaitingTaskManager extends AppCompatActivity {
     public void clickToDeclineTask(View view) {
         String txtFeedBack = edtFeedBack.getText().toString();
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+        if (txtFeedBack.trim().equals("") || rate.trim().equals("")) {
+            txtErrorFeedback.setVisibility(View.VISIBLE);
+            return;
+        }
         try {
             Gson gson = new Gson();
             asyncHttpClient.addHeader(JWT.HEADER, JWT.jwt.get(JWT.HEADER));

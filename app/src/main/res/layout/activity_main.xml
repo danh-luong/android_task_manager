@@ -51,6 +51,16 @@
         android:textColor="@color/colorErorrRed"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/errorTextViewRoleGroup"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:text="Please assign to role and group first"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="italic"
+        android:textColor="@color/colorErorrRed"
+        android:visibility="gone" />
+
     <Button
         android:layout_width="350dp"
         android:layout_height="wrap_content"

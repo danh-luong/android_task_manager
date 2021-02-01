@@ -1,6 +1,7 @@
 package com.hfad.taskmanagement;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,8 +38,25 @@ public class HistoryCardViewAdapter extends
         TextView txtAssignee = (TextView) cardView.findViewById(R.id.txtAssignee);
         TextView txtStatus = (TextView) cardView.findViewById(R.id.txtStatus);
 
+        if (list.get(position).getTxtSupendDate() != null) {
+            LinearLayout lnSuspendDate = (LinearLayout) cardView.findViewById(R.id.lnSuspendDate);
+            LinearLayout lnSuspendBy = (LinearLayout) cardView.findViewById(R.id.lnSuspendBy);
+            lnSuspendDate.setVisibility(View.VISIBLE);
+            lnSuspendBy.setVisibility(View.VISIBLE);
+            TextView txtSupendBy = (TextView) cardView.findViewById(R.id.txtSupendBy);
+            TextView txtSupendDate = (TextView) cardView.findViewById(R.id.txtSupendDate);
+            txtSupendBy.setText(list.get(position).getTxtSuspendBy());
+            txtSupendDate.setText(list.get(position).getTxtSupendDate());
+        }
+
+        String[] formatTextAssignDate = list.get(position).getTxtAssignDate().split("-");
+        String assignDate = formatTextAssignDate[2];
+        for (int i = 1; i >= 0; i--) {
+            assignDate += "-" + formatTextAssignDate[i];
+        }
+
         txtTaskName.setText(list.get(position).getTxtTaskName());
-        txtAssignDate.setText(list.get(position).getTxtAssignDate());
+        txtAssignDate.setText(assignDate);
         txtAssignee.setText(list.get(position).getTxtAssignee());
         txtStatus.setText(list.get(position).getTxtStatus());
     }

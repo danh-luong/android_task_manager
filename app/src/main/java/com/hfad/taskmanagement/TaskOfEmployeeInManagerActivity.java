@@ -33,6 +33,11 @@ public class TaskOfEmployeeInManagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_of_employee_in_manager);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();

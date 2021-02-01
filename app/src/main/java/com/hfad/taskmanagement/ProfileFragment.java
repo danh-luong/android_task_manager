@@ -2,6 +2,7 @@ package com.hfad.taskmanagement;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,11 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 import com.hfad.taskmanagement.dto.UserProfile;
+import com.hfad.taskmanagement.dto.UserProfileForScanQR;
 import com.hfad.taskmanagement.jwt.JWT;
 import com.hfad.taskmanagement.server.ServerConfig;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -32,6 +39,7 @@ public class ProfileFragment extends Fragment {
 
     private String imgUrl;
     private EditText edtName, edtPhone, edtEmail, edtAddress;
+    private ImageView qrImage;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -56,15 +64,28 @@ public class ProfileFragment extends Fragment {
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                             Gson gson = new Gson();
                             String userProfileJson = new String(responseBody);
-                            UserProfile userProfile = gson.fromJson(userProfileJson, UserProfile.class);
+                            UserProfileForScanQR userProfileForScanQR = gson.fromJson(userProfileJson, UserProfileForScanQR.class);
                             edtName = ProfileFragment.this.getActivity().findViewById(R.id.edtName);
                             edtPhone = ProfileFragment.this.getActivity().findViewById(R.id.edtPhone);
                             edtEmail = ProfileFragment.this.getActivity().findViewById(R.id.edtEmail);
                             edtAddress = ProfileFragment.this.getActivity().findViewById(R.id.edtAddress);
-                            edtName.setText(userProfile.getName());
-                            edtAddress.setText(userProfile.getAddress());
-                            edtEmail.setText(userProfile.getEmail());
-                            edtPhone.setText(userProfile.getPhone());
+                            qrImage = ProfileFragment.this.getActivity().findViewById(R.id.qrImage);
+
+                            edtName.setText(userProfileForScanQR.getName());
+                            edtAddress.setText(userProfileForScanQR.getAddress());
+                            edtEmail.setText(userProfileForScanQR.getEmail());
+                            edtPhone.setText(userProfileForScanQR.getPhone());
+
+                            try {
+                                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+                                BitMatrix bitMatrix = multiFormatWriter.encode(userProfileForScanQR.getId(),
+                                                        BarcodeFormat.QR_CODE, 500, 500);
+                                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                                Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+                                qrImage.setImageBitmap(bitmap);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         @Override

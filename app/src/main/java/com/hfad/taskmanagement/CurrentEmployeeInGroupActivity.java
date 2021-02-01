@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -30,12 +32,20 @@ public class CurrentEmployeeInGroupActivity extends AppCompatActivity {
     private List<GroupUserDTO> groupUserDTOList;
     private List<EmployeeDTO> employeeDTOSList;
     private String groupId;
+    private TextView txtErrorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_employee_in_group);
         Intent intent = getIntent();
+        String errorManager = intent.getStringExtra("error");
+        txtErrorManager = findViewById(R.id.txtErrorManager);
+        if (errorManager == null) {
+            txtErrorManager.setVisibility(View.GONE);
+        } else {
+            txtErrorManager.setVisibility(View.VISIBLE);
+        }
         groupId = intent.getStringExtra("groupId");
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         JSONObject jsonObject = new JSONObject();
@@ -50,7 +60,8 @@ public class CurrentEmployeeInGroupActivity extends AppCompatActivity {
                             RecyclerView taskRecycle = (RecyclerView) findViewById(R.id.employee_in_group);
                             Gson gson = new Gson();
                             String listTaskJson = new String(responseBody);
-                            Type type = new TypeToken<ArrayList<GroupUserDTO>>(){}.getType();
+                            Type type = new TypeToken<ArrayList<GroupUserDTO>>() {
+                            }.getType();
                             CurrentEmployeeInGroupActivity.this.groupUserDTOList = gson.fromJson(listTaskJson, type);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CurrentEmployeeInGroupActivity.this);
                             CurrentEmployeeInGroupAdapter adapter = new CurrentEmployeeInGroupAdapter(CurrentEmployeeInGroupActivity.this.groupUserDTOList, CurrentEmployeeInGroupActivity.this);
@@ -70,7 +81,8 @@ public class CurrentEmployeeInGroupActivity extends AppCompatActivity {
                             RecyclerView taskRecycle = (RecyclerView) findViewById(R.id.available_employee);
                             Gson gson = new Gson();
                             String listEmployeeJson = new String(responseBody);
-                            Type type = new TypeToken<ArrayList<EmployeeDTO>>(){}.getType();
+                            Type type = new TypeToken<ArrayList<EmployeeDTO>>() {
+                            }.getType();
                             CurrentEmployeeInGroupActivity.this.employeeDTOSList = gson.fromJson(listEmployeeJson, type);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CurrentEmployeeInGroupActivity.this);
                             AvailableEmployeeAdapter adapter = new AvailableEmployeeAdapter(CurrentEmployeeInGroupActivity.this.employeeDTOSList, CurrentEmployeeInGroupActivity.this, groupId);
@@ -86,5 +98,13 @@ public class CurrentEmployeeInGroupActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomeAdminActivity.class);
+        intent.putExtra("username", ServerConfig.currentAccount.getUsername());
+        finish();
+        startActivity(intent);
     }
 }

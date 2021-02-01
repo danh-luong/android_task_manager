@@ -11,7 +11,6 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.hfad.taskmanagement.dto.UpdatedUserInfoDTO;
 import com.hfad.taskmanagement.dto.UserInfoAdminDTO;
-import com.hfad.taskmanagement.dto.UserProfile;
 import com.hfad.taskmanagement.jwt.JWT;
 import com.hfad.taskmanagement.server.ServerConfig;
 import com.loopj.android.http.AsyncHttpClient;

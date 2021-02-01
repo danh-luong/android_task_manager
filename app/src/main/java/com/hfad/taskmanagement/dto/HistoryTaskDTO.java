@@ -5,12 +5,38 @@ import java.io.Serializable;
 public class HistoryTaskDTO implements Serializable {
 
     private String txtTaskName, txtAssignDate, txtAssignee, txtStatus;
+    private String txtSupendDate, txtSuspendBy;
+
+    public HistoryTaskDTO(String txtTaskName, String txtAssignDate, String txtAssignee, String txtStatus, String txtSupendDate, String txtSuspendBy) {
+        this.txtTaskName = txtTaskName;
+        this.txtAssignDate = txtAssignDate;
+        this.txtAssignee = txtAssignee;
+        this.txtStatus = txtStatus;
+        this.txtSupendDate = txtSupendDate;
+        this.txtSuspendBy = txtSuspendBy;
+    }
 
     public HistoryTaskDTO(String txtTaskName, String txtAssignDate, String txtAssignee, String txtStatus) {
         this.txtTaskName = txtTaskName;
         this.txtAssignDate = txtAssignDate;
         this.txtAssignee = txtAssignee;
         this.txtStatus = txtStatus;
+    }
+
+    public String getTxtSupendDate() {
+        return txtSupendDate;
+    }
+
+    public void setTxtSupendDate(String txtSupendDate) {
+        this.txtSupendDate = txtSupendDate;
+    }
+
+    public String getTxtSuspendBy() {
+        return txtSuspendBy;
+    }
+
+    public void setTxtSuspendBy(String txtSuspendBy) {
+        this.txtSuspendBy = txtSuspendBy;
     }
 
     public String getTxtTaskName() {
